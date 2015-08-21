@@ -6,7 +6,7 @@ ______________________
 Documentación
 ======================
  
- Este LEEME sirve para la configuración y uso de Donator
+ Este LEEME sirve para la configuración y uso de Smartest
 
 ______________________
 Notas del Lanzamiento
