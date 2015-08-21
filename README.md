@@ -12,7 +12,7 @@ ______________________
 Notas del Lanzamiento
 ======================
 
- Solo soporte para discos SATA.[#1](/eReuse/Smartest/issues/1)
+ Solo soporte para discos SATA. [Issue #1](https://github.com/eReuse/Smartest/issues/1)
  
 _____________________
 Instalación
