@@ -1,0 +1,209 @@
+#!/bin/bash
+FIN=0
+# Loads the menu language.
+LANG=`echo $LANG | head -n 1 | cut -c1-2`
+. /usr/share/smartest/etc/menu_$LANG.properties 2>/dev/null
+# disclist.sh -> To find the USB with the config.ini variables.
+. /usr/share/donator/bin/disclist.sh
+####################
+#	Config.ini     #
+####################
+variables() {
+	if [[ `cat $variables_file | grep -o DISC=N` == "DISC=N" ]]
+	then
+		DISC=N
+	elif [[ `cat $variables_file | grep -o DISC=1` == "DISC=1" ]]
+	then
+		DISC=1
+	elif [[ `cat $variables_file | grep -o DISC=2` == "DISC=2" ]]
+	then
+		DISC=2
+	else
+		DISC=Y
+	fi
+	if [[ `cat $variables_file | grep -o ERASE=N` == "ERASE=N" ]]
+	then
+		ERASE=N
+	else
+		ERASE=Y
+	fi	
+	if [[ `cat $variables_file | grep -o EQUIP=1` == "EQUIP=1" ]]
+	then
+		EQUIP=1
+	elif [[ `cat $variables_file | grep -o EQUIP=2` == "EQUIP=2" ]]
+	then
+		EQUIP=2
+	elif [[ `cat $variables_file | grep -o EQUIP=3` == "EQUIP=3" ]]
+	then
+		EQUIP=3
+	elif [[ `cat $variables_file | grep -o EQUIP=4` == "EQUIP=4" ]]
+	then
+		EQUIP=4
+	elif [[ `cat $variables_file | grep -o EQUIP=5` == "EQUIP=5" ]]
+	then
+		EQUIP=5
+	elif [[ `cat $variables_file | grep -o EQUIP=6` == "EQUIP=6" ]]
+	then
+		EQUIP=6
+	else
+		EQUIP=0
+	fi
+	if [[ `cat $variables_file | grep -o DONOR=N` == "DONOR=N" ]]
+	then
+		DONOR=N
+	else
+		DONOR=Y
+	fi
+	if [[ `cat $variables_file | grep -o ID=N` == "ID=N" ]]
+	then
+		ID=N
+	else
+		ID=Y
+	fi
+	if [[ `cat $variables_file | grep -o TIME=Y` == "ID=Y" ]]
+	then
+		ID=Y
+	else
+		ID=N
+	fi
+	if [[ `cat $variables_file | grep -o LABEL=N` == "LABEL=N" ]]
+	then
+		LABEL=N
+	else
+		LABEL=Y
+	fi
+	if [[ `cat $variables_file | grep -o OBS=N` == "OBS=N" ]]
+	then
+		OBS=N
+	else
+		OBS=Y
+	fi
+	if [[ `cat $variables_file | grep -o SAVE=Y` == "SAVE=Y" ]]
+	then
+		SAVE=Y
+	else
+		SAVE=n
+	fi
+	if [[ `cat $variables_file | grep -o OFFLINE=N` == "OFFLINE=N" ]]
+	then
+		OFFLINE=N
+	else
+		OFFLINE=Y
+	fi
+	if [[ `cat $variables_file | grep -o MOVE=N` == "MOVE=N" ]]
+	then
+		MOVE=N
+	else
+		MOVE=Y
+	fi
+	if [[ `cat $variables_file | grep -o SENDTOSERVER=N` == "SENDTOSERVER=N" ]]
+	then
+		SENDTOSERVER=N
+	else
+		SENDTOSERVER=Y
+	fi
+}
+. /usr/share/donator/bin/disclist.sh
+DIRCONINI=`mount | grep $USB_ALM | awk '{print $3}'`
+if [ -e $DIRCONINI/config.ini ]
+then
+		variables_file="$DIRCONINI/config.ini"
+		variables
+else
+	variables_file="/usr/share/donator/etc/config.ini"
+	variables
+fi
+####################
+## Start of Smartest.
+sudo smartctl -s on $DISC_DUR &> /dev/null
+if [[ $DISC == 1 ]]; then
+	sudo smartctl -s on $DISC_DUR &> /dev/null
+	sudo smartctl -t short $DISC_DUR | grep "Test will complete after" > /usr/share/donator/etc/data.ini
+	cat /usr/share/donator/etc/data.ini
+	#| awk '{print $8}'
+elif [[ $DISC == 2 ]]; then
+	sudo smartctl -s on $DISC_DUR &> /dev/null
+	sudo smartctl -t long $DISC_DUR | grep "Test will complete after" > /usr/share/donator/etc/data.ini
+	cat /usr/share/donator/etc/data.ini
+elif [[ $DISC == N ]]; then
+	echo "Smartest: Nothing to check."
+else
+	while true; do
+		clear
+		tput cup 4 5
+		echo " ____  __  __    _    ____ _____ _____ ____ _____ "
+		tput cup 5 5
+		echo "/ ___||  \/  |  / \  |  _ \_   _| ____/ ___|_   _|"
+		tput cup 6 5
+		echo "\___ \| |\/| | / _ \ | |_) || | |  _| \___ \ | |  "
+		tput cup 7 5
+		echo " ___) | |  | |/ ___ \|  _ < | | | |___ ___) || |  "
+		tput cup 8 5
+		echo "|____/|_|  |_/_/   \_\_| \_\|_| |_____|____/ |_|  "
+		echo " "
+	
+		tput cup 11 5
+		echo $option_1
+		tput cup 11 33
+		echo $option_2
+		tput cup 12 5
+		echo $option_3
+		tput cup 12 33
+		echo $option_4
+		tput cup 13 5
+		echo $option_5
+		tput cup 13 33
+		echo $option_6
+	
+		if [[ $NUM_DO == "" ]]; then
+			tput cup 15 2
+			echo -n $option_X
+			
+			read NUM_DO
+		fi
+			echo " "
+		case $NUM_DO in
+		1) 
+			echo -n $option_1_1
+			sudo smartctl -c $DISC_DUR | grep "recommended polling time:" | awk '{print $5 $6}' | sed -e "s/)/ /g" | sed -n '1{p;q}'
+			echo -n $option_1_2
+			sudo smartctl -c $DISC_DUR | grep "recommended polling time:" | awk '{print $5 $6}' | sed -e "s/)/ /g" | sed -n '2{p;q}'
+			echo " "
+			echo -n $option_X_2
+			read NUM_DO
+			;;
+		2)
+			sudo smartctl -t short $DISC_DUR | sed -n '/Testing/,/Test/p' > /usr/share/donator/etc/data.ini
+			cat /usr/share/donator/etc/data.ini
+			echo " "
+			echo -n $option_X_2
+			read NUM_DO
+			;;
+		3)
+			sudo smartctl -t long $DISC_DUR | sed -n '/Testing/,/Test/p' > /usr/share/donator/etc/data.ini
+			cat /usr/share/donator/etc/data.ini
+			echo " "
+			echo -n $option_X_2
+			read NUM_DO
+			;; 
+		4)
+			sudo smartctl -l selftest $DISC_DUR | sed -n '/===/,//p'
+			echo " "
+			echo -n $option_X_2
+			read NUM_DO
+			;;
+		5)  
+			sudo smartctl -X $DISC_DUR | sed -n '/===/,//p'
+			echo 0 > /usr/share/donator/etc/data.ini
+			echo " "
+			echo -n $option_X_2
+			read NUM_DO
+			;;
+		0)
+			break
+			;;
+		*)
+			NUM_DO=""
+		esac
+	done
+fi
