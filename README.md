@@ -20,13 +20,15 @@ Instalación
 
  Mover los siguientes archivos en "/usr/share/smartest/*".
 
->   - smartest
->                |- bin
->                |    |- smartest
->                |- etc
->                     |- menu_ca.properties
->                     |- menu_en.properties
->                     |- menu_es.properties
+````
+       - smartest
+                |- bin
+                |    |- smartest
+                |- etc
+                     |- menu_ca.properties
+                     |- menu_en.properties
+                     |- menu_es.properties
+````
 
  Smartest depende de `smartmontools`:
  
