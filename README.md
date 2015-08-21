@@ -33,7 +33,9 @@ Instalación
  Smartest depende de `smartmontools`:
  
  * Instalación del paquete `smartmontools` en Ubuntu:
-    sudo apt-get install smartmontools
+````
+sudo apt-get install smartmontools
+````
 
 ______________________
 Uso de la aplicación
