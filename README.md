@@ -12,7 +12,7 @@ ______________________
 Notas del Lanzamiento
 ======================
 
- Solo soporte para discos SATA.
+ Solo soporte para discos SATA.#1
  
 _____________________
 Instalación
@@ -40,12 +40,12 @@ Uso de la aplicación
  Para arrancar la aplicación se debe ejecutar el fichero `smartest` situado en el
  directorio bin de la instalación.
 
- El programa leerá las opciones del archivo *config.ini*, según la configuración:
+ El programa leerá las opciones del archivo **config.ini**, según la configuración:
  
-* Y = Preguntará al técnico que opción desea realizar.
-* 1 = hará un chequeo rápido del disco duro primario.
-* 2 = Hará un chequeo extendido del disco duro primario.
-* N = No se ejecutará.
+*  Y = Preguntará al técnico que opción desea realizar.
+*  1 = hará un chequeo rápido del disco duro primario.
+*  2 = Hará un chequeo extendido del disco duro primario.
+*  N = No se ejecutará.
 
  (El proceso de *DeviceInventory* esperará si el chequeo aún no ha finalizado)
 
