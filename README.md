@@ -1,24 +1,27 @@
 # Smartest
 ======================================================
-Smartest v6.3  (Agosto, 2015)
+Smartest v6.3  (August, 2015)
 
+ **This program is deprecated and not actively developed anymore.**
+ 
+ You can find the new repository full supported on [device-inventory](https://github.com/eReuse/device-inventory).
 ______________________
-Documentación
+Documentation
 ======================
  
- Este LEEME sirve para la configuración y uso de Smartest
+ This README is for the configuration and use of Smartest
 
 ______________________
-Notas del Lanzamiento
+Release Notes
 ======================
 
- Solo soporte para discos SATA. [Issue #1](https://github.com/eReuse/Smartest/issues/1)
+ Only support SATA hard disks. [Issue #1](https://github.com/eReuse/Smartest/issues/1)
  
 _____________________
-Instalación
+Installation
 ======================
 
- Mover los siguientes archivos en "/usr/share/smartest/*".
+ Install the next files from the repository to "/usr/share/smartest/*".
 
 ````
        - smartest
@@ -30,36 +33,33 @@ Instalación
                      |- menu_es.properties
 ````
 
- Smartest depende de `smartmontools`:
+ Smartest needs `smartmontools` package:
  
- * Instalación del paquete `smartmontools` en Ubuntu.
+ * Installation of `smartmontools` on Ubuntu.
 ````
 sudo apt-get install smartmontools
 ````
 
 ______________________
-Uso de la aplicación
+Usage
 ======================
 
- Para arrancar la aplicación se debe ejecutar el fichero `smartest` situado en el
- directorio bin de la instalación.
+ To run this application, you need to install [DeviceInventory](https://github.com/eReuse/DeviceInventory)  to run `smartest`.
 
- El programa leerá las opciones del archivo **config.ini**, según la configuración:
+ This program reads the configuration on **config.ini**:
  
- * Y = Preguntará al técnico que opción desea realizar.
- * 1 = hará un chequeo rápido del disco duro primario.
- * 2 = Hará un chequeo extendido del disco duro primario.
- * N = No se ejecutará.
+ * Y = Asks what test want to do.
+ * 1 = To do a quick HDD check without asking to user.
+ * 2 = To do a long HDD check without asking to user.
+ * N = Do not ask or check.
 
- (El proceso de *DeviceInventory* esperará si el chequeo aún no ha finalizado)
+ (If you choise any test, *DeviceInventory* will wait until the test finish.)
 
- Una vez finalizado guardará la información en `/usr/share/donator/etc/data.ini`
- donde el programa `donator` importará el resultado del chequeo.
+ When the check is finished, it will be saved to `/usr/share/donator/etc/data.ini`
+ where `donator` import the results of the test.
  
 ______________________
-Soporte
+Support
 ======================
 
- Cualquier problema con esta versión puede ser reportado en la siguiente
- dirección de correo electrónico:
- adrias@ereuse.org
+ For any support or report, please contact to: adrias@ereuse.org
